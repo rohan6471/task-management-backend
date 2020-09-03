@@ -4,14 +4,14 @@ const nodemailer = require('nodemailer');
 
 class UserController {
     async login({ request, response, auth }) {
-        // console.log("enteddddd")
-        // console.log(request.body)
+        
         const k = await User.query().where("email", request.body.email).where("password",request.body.password).fetch();
         console.log(k.toJSON().length)
 
         if (k.toJSON().length > 0) {
                  return response.status(200).json({
-                    message: "success"
+                    message: "success",
+                    role: k.toJSON().role
                    
                 });
         }
@@ -107,6 +107,15 @@ class UserController {
             });
         }
     
+
+    }
+
+    async logout({ response }) {
+        logger.debug("AuthController-logout function executed successfully");
+        return response.status(200).json({
+            status: 200,
+            message: "logout successfull",
+        });
     }
    
 }

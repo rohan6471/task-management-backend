@@ -5,11 +5,11 @@ const Model = use('Model')
 
 class User extends Model {
     static get primaryKey(){
-        return "userId";
+        return "id";
         
     }
     user_project(){
-        return this.belongsToMany("App/Models/Project", "projectId", "userId", "projectId", "userId")
+        return this.belongsToMany("App/Models/Project", "id", "id", "id", "id")
             .pivotTable("user_projects")
     }
 }

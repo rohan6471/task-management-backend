@@ -7,10 +7,10 @@ class UserProjectSchema extends Schema {
   up () {
     this.create('user_projects', (table) => {
      
-       table.integer('userId')
-      table.foreign('userId').references('users.userId').onDelete('cascade')
-      table.integer('projectId')
-      table.foreign('projectId').references('projects.projectId').onDelete('cascade') 
+      table.integer('userId').unsigned().notNullable()
+      table.foreign('userId').references('users.id').onDelete('cascade')
+      table.integer('projectId').unsigned().notNullable()
+      table.foreign('projectId').references('projects.id').onDelete('cascade') 
       table.timestamps()
     })
   }

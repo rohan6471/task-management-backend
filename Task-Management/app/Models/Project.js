@@ -5,13 +5,13 @@ const Model = use('Model')
 
 class Project extends Model {
     static get primaryKey(){
-        return "projectId";
+        return "id";
     }
     task(){
-         return this.hasMany("App/Models/Task", "projectId", "taskId"); 
+         return this.hasMany("App/Models/Task", "id", "id"); 
     }
     project_user(){
-        return this.belongsToMany("App/Models/User", "userId", "projectId", "userId", "projectId")
+        return this.belongsToMany("App/Models/User", "id", "id", "id", "id")
             .pivotTable("user_projects")
     }
 }

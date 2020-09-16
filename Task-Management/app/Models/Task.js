@@ -5,10 +5,10 @@ const Model = use('Model')
 
 class Task extends Model {
     static get primaryKey(){
-        return "taskId";
+        return "id";
     }
     project(){
-        return this.belongsTo("App/Models/Project", "taskId", "projectId"); 
+        return this.belongsTo("App/Models/Project", "id", "id"); 
     }
 }
 

@@ -1,29 +1,10 @@
 'use strict'
 const Student = use('App/Models/User');
 class StudentController {
-    async createStudent({ params, response }) {
-        const input = request.all();
-        const rules = {
-            id: "required",
-            firstName: "required",
-            lastName: "required",
-            email: "required",
-            startTerm: "required",
-            category: "required",
-            programId: "required",
-          };
-    
-          const validation = await validateAll(input, rules);
-          if (validation.fails()) {
-            return response.status(401).json({
-              error: {
-                status: 401,
-                message: "bad request, missing some required properties",
-                fields: validation.messages(),
-              },
-            });
-          }
-          const savedStudent = await User.findOrCreate(input);
+    async createStudent({ request,params, response }) {
+        console.log("enterdsdfdfsdf")
+        console.log(request.all())
+          const savedStudent = await Student.findOrCreate(request.all());
           return response.ok({
             status: 200,
             message: "student created successfully",

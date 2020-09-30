@@ -8,10 +8,12 @@ class ProjectSchema extends Schema {
     this.create('projects', (table) => {
      
       table.increments()
-      table.string('title').notNullable()
-      table.date('duedate').notNullable()
-      table.string('status').notNullable()
-     table.string('files', 60).notNullable()
+      table.string('name').notNullable()
+      table.string('description').notNullable()
+      table.date('duedate')
+      table.string('status')
+      table.string('assignTo')
+     table.string('files', 60)
      
      table.timestamps()
     })

@@ -2,8 +2,8 @@
 const Student = use('App/Models/User');
 class StudentController {
     async createStudent({ request,params, response }) {
-        console.log("enterdsdfdfsdf")
-        console.log(request.all())
+        // console.log("enterdsdfdfsdf")
+        // console.log(request.all())
           const savedStudent = await Student.findOrCreate(request.all());
           return response.ok({
             status: 200,

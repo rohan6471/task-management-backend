@@ -27,7 +27,7 @@ async getAllProjects({ params, response }) {
    // logger.debug("StudentController-getAllStudentsInAProgram, Succesfully retrived students for the given program");
     return response.json(project);
   }
-async deletetProject({ params, response }) {
+async deleteProject({ params, response }) {
     const project = await Project.find(params.projectId);
     if (!project) {
         return response.notFound({

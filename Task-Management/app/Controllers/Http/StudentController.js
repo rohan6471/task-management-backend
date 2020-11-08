@@ -90,6 +90,27 @@ class StudentController {
             message: "Student deleted successfully",
         });
     }
+    async searchStudent({ params, request, response }) {
+      console.log("entereddd")
+      console.log(params.searchCode)
+    // const queryParam = request.all();
+    let student;
+    if(params.searchCode== null){
+      console.log("cameee")
+    }
+    // console.log(queryParam.search)
+    // if (queryParam && queryParam.search) {
+      student = await Student.query()
+         
+          .where(function () {
+              this.where('firstName', 'like', '%' + params.searchCode + '%')
+                  .orWhere('lastName', 'like', '%' + params.searchCode + '%')
+          })
+          .fetch();
+    
+    return response.ok(student);
+    }
+    
     async getUserProjects({ params, response }) {
       const student = await Student.query() .where('id', params.studentId).with("user_project").fetch();
       if (!student) {

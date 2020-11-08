@@ -47,6 +47,7 @@ Route.group(() => {
   Route.post("/createProject", "ProjectController.createProject")
   Route.get("/getProjects", "ProjectController.getAllProjects")
   Route.get("/getProject/:projectId", "ProjectController.getProject")
+  Route.get("/search/:searchCode", "ProjectController.searchProject")
   Route.get("/deleteProject/:projectId", "ProjectController.deleteProject")
   Route.post("/updateProject/:projectId", "ProjectController.updateProject")
 }).prefix("/taskmanagement/api/project");
@@ -78,6 +79,7 @@ Route.group(() => {
   Route.post("/addStudent", "StudentController.createStudent")
   Route.get("/getStudents", "StudentController.getAllStudents")
   Route.get("/getStudent/:studentId", "StudentController.getStudent")
+  Route.get("/search/:searchCode", "StudentController.searchStudent")
   Route.get("/userProjects/:studentId", "StudentController.getUserProjects")
   Route.post("/updateStudent/:studentId", "StudentController.updateStudent")
   Route.get("/deleteStudent/:studentId", "StudentController.deletetStudent")

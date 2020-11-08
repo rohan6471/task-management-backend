@@ -88,6 +88,22 @@ async getAllProjects({ params, response }) {
    // return response.ok(project);
    
  }
+ async searchProject({ params, request, response }) {
+  console.log(params.searchCode)
+// const queryParam = request.all();
+let project;
+// console.log(queryParam.search)
+// if (queryParam && queryParam.search) {
+  project = await Project.query()
+     
+      .where(function () {
+          this.where('name', 'like', '%' + params.searchCode + '%')
+              .orWhere('description', 'like', '%' + params.searchCode + '%')
+      })
+      .fetch();
+
+return response.ok(project);
+}
 
 async deleteProject({ params, response }) {
   console.log("PROJECTSSS")

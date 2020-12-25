@@ -14,7 +14,7 @@ class TaskSchema extends Schema {
       table.string('assignedTo').notNullable()
       table.date('startDate').notNullable()
       table.date('expectedEndDate').notNullable()
-      table.string('files', 60).notNullable()
+      table.string('files', 60)
       table.integer('projectId').unsigned().notNullable()
       table.foreign('projectId').references('projects.id').onDelete('cascade')
       table.timestamps()

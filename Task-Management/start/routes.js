@@ -61,10 +61,12 @@ Route.group(() => {
 | 
 */
 Route.group(() => {
-  Route.post("/createTask/:projectId", "TaskController.createTask")
-  Route.get("/getTasks/:ProjectId", "UserController.getAllTasks")
-  Route.post("/deleteTask/:taskId", "UserController.deletetTask")
-  Route.post("/editTask/:taskId", "UserController.newPassword")
+  Route.post("/createTask", "TaskController.createTask")
+  Route.get("/getTasks/:ProjectId", "TaskController.getAllTasks")
+  Route.get("/search/:projectId/:searchCode", "TaskController.searchTask")
+  Route.get("/deleteTask/:taskId", "TaskController.deletetTask")
+  Route.get("/getTask/:taskId", "TaskController.getTask")
+  Route.post("/updateTask/:taskId", "TaskController.updateTask")
 }).prefix("/taskmanagement/api/task");
 
 /*

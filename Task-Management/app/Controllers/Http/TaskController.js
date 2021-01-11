@@ -77,6 +77,36 @@ class TaskController {
       // logger.debug("StudentController-getAllStudentsInAProgram, Succesfully retrived students for the given program");
        return response.json(project);
      }
+     async getUserTask({ params, response }) {
+
+      const project = await Task.query()
+      
+      .where('projectId', params.projectId)
+      .where('assignedTo',params.userId)
+      
+      .fetch();
+       
+      if (project == null) {
+      // logger.error("StudentController-getAllStudentsInAProgram, Students for the given program not found");
+       return response.status(404).json({
+         message: "Projects not found",
+       });
+     }
+    
+  
+    // logger.debug("StudentController-getAllStudentsInAProgram, Succesfully retrived students for the given program");
+     return response.json(project);
+   }
+   async updateTaskstatus({ request, response, auth,params }) {
+    const task = await Task.find(params.id);
+    task.status = params.taskStatus;
+    await task.save()
+   // const orderData = await Order.query().select('*').with('order_medicines').with('order_card').with('order_address').orderBy('created_at','desc').fetch();
+    return response.json(task);
+  //  const order = await Order.query().where("id", "=", params.orderId).with('order_medicines').with('order_card').with('order_address').fetch();
+  
+  //return response.json(order);
+  }
     async deletetTask({ params, response }) {
       console.log("delete task camee")
         const task = await Task.find(params.taskId)

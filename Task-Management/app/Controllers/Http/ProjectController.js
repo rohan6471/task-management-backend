@@ -1,7 +1,9 @@
 'use strict'
+const Helpers = use('Helpers');
 const Project = use('App/Models/Project');
 const Student = use('App/Models/User');
 const UserProject = use('App/Models/UserProject');
+const Drive = use('Drive');
 const _ = use("lodash");
 class ProjectController {
 //Add Project 
@@ -27,6 +29,7 @@ async createProject({ request,params, response }) {
       return response.ok({
         status: 200,
         message: "project successfully",
+        projectData : savedStudent.toJSON()
     });
 
 }
@@ -120,6 +123,56 @@ async deleteProject({ params, response }) {
         status: 200,
         message: "project deleted successfully",
     });
+}
+
+async upload ({ request,params }) {
+  console.log("file cameee")
+  const validationOptions = {
+     
+      size: '5mb',
+  };
+
+  const imageFile = request.file('custom-param-name', validationOptions);
+  let project = await Project.find(params.projectId);
+  const fileName = project.files;
+  if (project == null) {
+    logger.error("ProgramController-editProgram, Program not found");
+    return response.status(404).json({
+      error: {
+        status: 401,
+        message: "project not found",
+      },
+    });
+  }
+  project.files = imageFile.clientName;
+  //  program.updatedBy = auth.user.name;
+    await project.save();
+    console.log(imageFile.clientName)
+
+    const isExist = await Drive.exists(`uploads/${fileName}`)
+    if (isExist) {
+      await Drive.delete(`uploads/${fileName}`)
+    }
+   
+  await imageFile.move(Helpers.tmpPath('uploads'))
+
+  if (!imageFile.moved()) {
+      return imageFile.error();
+  }
+  return 'File uploaded';
+}
+async download ({ params, response }) {
+  console.log("cameeeeeeeeeeeeeeeeeeeeeee")
+  const filePath = `uploads`;
+  const isExist = await Drive.exists(filePath);
+  const project = await Project.find(params.projectId);
+  console.log(isExist)
+
+  if (isExist) {
+    console.log(Helpers.tmpPath(filePath))
+      return response.download(Helpers.tmpPath(`uploads/${project.files}`));
+  }
+  return 'File not exist';
 }
 
 

@@ -5,13 +5,16 @@ const nodemailer = require('nodemailer');
 class UserController {
     async login({ request, response, auth }) {
         
-        const k = await User.query().where("email", request.body.email).where("password",request.body.password).fetch();
-        console.log(k.toJSON().length)
-
+        const k = await User.query().where("email",'=', request.body.email).where("password",'=',request.body.password).fetch();
+        
+           const jwtToken = await auth.generate(k.toJSON()[0])
+          
         if (k.toJSON().length > 0) {
                  return response.status(200).json({
                     message: "success",
-                    role: k.toJSON().role
+                    role: k.toJSON()[0].role,
+                    value : k.toJSON()[0],
+                    tokenValue : jwtToken.token
                    
                 });
         }

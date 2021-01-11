@@ -50,7 +50,9 @@ Route.group(() => {
   Route.get("/search/:searchCode", "ProjectController.searchProject")
   Route.get("/deleteProject/:projectId", "ProjectController.deleteProject")
   Route.post("/updateProject/:projectId", "ProjectController.updateProject")
-}).prefix("/taskmanagement/api/project");
+  Route.post("/upload/:projectId", "ProjectController.upload")
+  Route.get("/download/:projectId", "ProjectController.download")
+}).prefix("/taskmanagement/api/project")//.middleware("auth");
 
 /*
 |--------------------------------------------------------------------------
@@ -66,8 +68,10 @@ Route.group(() => {
   Route.get("/search/:projectId/:searchCode", "TaskController.searchTask")
   Route.get("/deleteTask/:taskId", "TaskController.deletetTask")
   Route.get("/getTask/:taskId", "TaskController.getTask")
+  Route.get("/getUserTask/:projectId/:userId", "TaskController.getUserTask")
+  Route.get("/updateStatus/:id/:taskStatus", "TaskController.updateTaskstatus")
   Route.post("/updateTask/:taskId", "TaskController.updateTask")
-}).prefix("/taskmanagement/api/task");
+}).prefix("/taskmanagement/api/task").middleware("auth");
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +89,7 @@ Route.group(() => {
   Route.get("/userProjects/:studentId", "StudentController.getUserProjects")
   Route.post("/updateStudent/:studentId", "StudentController.updateStudent")
   Route.get("/deleteStudent/:studentId", "StudentController.deletetStudent")
-}).prefix("/taskmanagement/api/student");
+}).prefix("/taskmanagement/api/student").middleware("auth");
 
 
 
